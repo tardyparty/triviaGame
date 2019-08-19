@@ -44,6 +44,10 @@ section {
     font-size: 35pt;
 }
 
+#timer {
+    font-size: 30pt;
+}
+
 .answer {
     display: none;
     width: 80%;

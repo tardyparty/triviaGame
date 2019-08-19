@@ -60,6 +60,7 @@ var unanswered = 0;
 var currentQuestionIndex = 0;
 var answerIndex = 0;
 var finished = false;
+var userAnswer = '';
 
 
 var playGame = function(){
@@ -71,11 +72,28 @@ var playGame = function(){
         $(".answer").show();
     })
 
+    countdown();
+}
+
+var countdown = function(){
+
     displayQuestion();
 
+    var timer = 30;
+    setInterval(function(){
+        $("#timer").text(timer);
+        timer--;
+    }, 1000)
+
+    if (timer === 0){
+        // the same code goes here as if they got the answer wrong
+    }
 }
 
 var displayQuestion = function(){
+    // reset userAnswer before each quesiton
+    userAnswer = '';
+
     // displays q and a into html
     $("#question").text(questions[currentQuestionIndex].Q);
 
@@ -90,13 +108,41 @@ var displayQuestion = function(){
     answerIndex++;
 
     acceptAnswer();
-
 }
 
+var acceptAnswer = function(){
+    // start timer for 4 seconds before calling displayQuestion
 
-// creat an objcet for the images and text to be displayed for each image.
+    currentQuestionIndex++;
 
-// need a function that displays the question and possible answer to their respective div or button;
+    $("answer1").on("click", function(){
+        userAnswer = $("#answer1").html();
+    });
+    $("answer2").on("click", function(){
+        userAnswer = $("#answer2").html();
+    });
+    $("answer3").on("click", function(){
+        userAnswer = $("#answer3").html();
+    });
+    $("answer4").on("click", function(){
+        userAnswer = $("#answer4").html();
+    });
+
+    // checks if answer was correct and displays correct page
+    if (userAnswer === "Atlanta" || userAnswer === "Lamar Odom" || userAnswer === "Albert Einstein" || userAnswer === "Flying Jib"
+    || userAnswer === "300lbs" || userAnswer === "Les Jolies Choses"){
+        wins++;
+        // create html divs for answer image and "Correct!"
+    }
+    else {
+        losses--;
+        // display worng answer page 
+    }
+    
+    displayQuestion();
+}
+
+// creat an objcet for the images and text to be displayed for each answer.
 
 // the timer will start counting down first
 
