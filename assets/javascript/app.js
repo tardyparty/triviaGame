@@ -19,27 +19,46 @@
 
 
 var questions = [
-    "Ray Charles famously had this state on his mind. What is its capital? Atlanta", 
-    "Okay, now, you're not an all-star of the NBA, but you did get your game on when you won the NBA's Sixth Man of the Year award in 2011. Who are you? Lamar Odom", 
-    "Who was the relatively unknown patent clerk who discovered that energy equals mass times the speed of light squared? Albert Einstein", 
-    "On a square-rigged ship, the sale set furthest forward is called what? Flying Jib",
-    "According to a recent survey, this is the most common learning disability among American adolescents. Dislexia",
-    "The standard American analog scale has a maximum capacity of what weight? 300lbs",
-    "This 2001 masterpiece from Gilles Paquet-Brenner explores the intricate dynamics of a family in disarray. Les Jolies Choses"
+    {
+        Q: "Ray Charles famously had this state on his mind. What is its capital?",
+    },
+    {
+        Q: "Okay, now, you're not an all-star of the NBA, but you did get your game on when you won the NBA's Sixth Man of the Year award in 2011. Who are you?",
+    },
+    {
+        Q: "Who was the relatively unknown patent clerk who discovered that energy equals mass times the speed of light squared?",
+    },
+        {Q: "On a square-rigged ship, the sale set furthest forward is called what?",
+    },
+    {
+        Q: "According to a recent survey, this is the most common learning disability among American adolescents.",
+    },
+    {
+        Q: "The standard American analog scale has a maximum capacity of what weight?",
+    },
+    {
+        Q: "This 2001 masterpiece from Gilles Paquet-Brenner explores the intricate dynamics of a family in disarray.",
+    }  
 ];
 
+// the correct answer is randomized manually in answers array
 var answers = [
-    "Atlanta", "Fort Worth", "New York", ""
+    "Atlanta", "New York", "Los Angeles", "Austin",
+    "Michael Jordan", "Magic Johnson", "Lamar Odom", "Larry Bird",
+    "Thomas Edison", "Albert Einstein", "Alexander Graham Bell", "Henry Ford",
+    "Flying Jib", "Spinnaker", "Genoa", "Main Sail",
+    "250lbs", "300lbs", "350lbs", "500lbs",
+    "Dark Places", "Walled In", "Sarah's Key", "Les Jolies Choses"
 ]
 
+// scoring
 var correct = 0;
-
 var incorrect = 0;
-
 var unanswered = 0;
 
+// display
 var currentQuestionIndex = 0;
-
+var answerIndex = 0;
 var finished = false;
 
 
@@ -53,13 +72,29 @@ var playGame = function(){
     })
 
     displayQuestion();
+
 }
 
 var displayQuestion = function(){
-    var index = 0;
-    $("#question").text(questions[index]);
-    finished = true;
+    // displays q and a into html
+    $("#question").text(questions[currentQuestionIndex].Q);
+
+    // answers are ++ after each display to go through all 4 possibilities
+    $("#answer1").text(answers[answerIndex]);
+    answerIndex++;
+    $("#answer2").text(answers[answerIndex]);
+    answerIndex++;
+    $("#answer3").text(answers[answerIndex]);
+    answerIndex++;
+    $("#answer4").text(answers[answerIndex]);
+    answerIndex++;
+
+    acceptAnswer();
+
 }
+
+
+// creat an objcet for the images and text to be displayed for each image.
 
 // need a function that displays the question and possible answer to their respective div or button;
 
