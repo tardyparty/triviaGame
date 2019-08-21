@@ -47,7 +47,7 @@ var quiz = [
 let correct = 0;
 let incorrect = 0;
 let unanswered = 0;
-let counter = 5;
+let counter = 3;
 let smallCounter = 5;
 let index = 0;
 let timer;
@@ -56,7 +56,7 @@ let smalltimer;
 // loads the question and answer page 
 function displayQuestion(){
 
-    counter = 5;
+    counter = 3;
     timer = setInterval(countDown, 1000);
 
     const question = quiz[index].question;
@@ -100,7 +100,7 @@ function timeUp(){
 
     clearInterval(timer);
     unanswered++;
-    wrongPage();
+    didNotAnswer();
 }
 
 function countDown(){
@@ -162,11 +162,27 @@ function wrongPage(){
     $("#game").html(nextPage);
 }
 
+function didNotAnswer(){
+
+    // starts a 5 second clock before proceeding to next question
+    smallCounter = 5;
+    smalltimer = setInterval(smallerCountDown, 1000);
+
+    const nextPage = `
+    <div class="correctAnswer">Sorry, Time's Up! The Answer was ${quiz[index].correctAnswer}</div>
+    <img class="correctImg" src="${quiz[index].img}"> 
+    `;
+
+    // shows the correct answer and images 
+    $("#game").html(nextPage);
+}
+
 function smallerCountDown(){
     smallCounter--;
+    console.log(smallCounter);
     if(smallCounter === 0){
-        console.log("smallerCountDown")
         nextQuestion();
+        clearInterval(smalltimer);
     }
 }
 
@@ -175,8 +191,18 @@ function displayResult(){
     const result = `
     <p>Correct: ${correct}</p>
     <p>Incorrect: ${incorrect}</p>
-    <button>Play Again</button>
+    <p>Unanswered: ${unanswered}</p>
+    <div id="playAgain">Play Again</div>
     `;
 
     $("#game").html(result);
+    $("#playAgain").on("click", function(){
+        resetGame();
+    })
+}
+
+function resetGame(){
+    $("#start").show();
+    $("#game").hide();
+    index = 0;
 }
