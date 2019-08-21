@@ -55,14 +55,15 @@ let smalltimer;
 
 // loads the question and answer page 
 function displayQuestion(){
+
     counter = 5;
     timer = setInterval(countDown, 1000);
 
     const question = quiz[index].question;
     const options = quiz[index].options;
 
-    $("#timer").html(counter);
     $("#game").html(`
+    <h1 id="timer" class="box">${counter}</h1>
     <h1 class="box">${question}</h1>
     ${displayAnswer(options)}
     `);
@@ -70,6 +71,7 @@ function displayQuestion(){
 
 // creates a button for each answer option 
 function displayAnswer(options){
+
     let result = '';
 
     for (var i=0; i< options.length; i++){
@@ -81,10 +83,6 @@ function displayAnswer(options){
 
 // assesses if quiz is finished and proceeds to the next one
 function nextQuestion(){
-    // reveal game div
-    $("#game").show();
-    $("#timer").show();
-    $("#answerPage").hide();
 
     const isFinished = (quiz.length - 1) === index;
 
@@ -99,12 +97,14 @@ function nextQuestion(){
 }
 
 function timeUp(){
+
     clearInterval(timer);
     unanswered++;
-    // answerPage();
+    wrongPage();
 }
 
 function countDown(){
+
     counter--;
 
     $("#timer").html(counter);
@@ -115,6 +115,7 @@ function countDown(){
 }
 
 $(document).on("click", ".answer", function(){
+
     clearInterval(timer);
     const userAnswer = $(this).attr("data-answer");
     const correctAnswer = quiz[index].correctAnswer;
@@ -132,38 +133,50 @@ $(document).on("click", ".answer", function(){
 });
 
 function correctPage(){
-    const nextPage = `
-    <div class="correctAnswer">The Correct Answer is: ${quiz[index].correctAnswer}</div>
-    <img class="correctImg" src="${quiz[index].img}"> 
-    `
-    // hides the last quesiton
-    $("#game").hide();
-
-    // stop quesitons timer
-    clearInterval(timer);
-    $("#timer").hide();
-
-    // shows the correct answer and images 
-    $("#answerPage").html(nextPage);
 
     // starts a 5 second clock before proceeding to next question
-    // smalltimer = setInterval(smallerCountDown, 5 * 1000);
+    smallCounter = 5;
+    smalltimer = setInterval(smallerCountDown, 1000);
+
+    const nextPage = `
+    <div class="correctAnswer">Yes! ${quiz[index].correctAnswer} is Correct. </div>
+    <img class="correctImg" src="${quiz[index].img}"> 
+    `;
+
+    // shows the correct answer and images 
+    $("#game").html(nextPage);
 }
 
-// function smallerCountDown(){
-//     smallCounter = 5;
-//     smallCounter--;
-//     if(smallCounter === 0){
-//         nextQuestion();
-//     }
-// }
+function wrongPage(){
+
+    // starts a 5 second clock before proceeding to next question
+    smallCounter = 5;
+    smalltimer = setInterval(smallerCountDown, 1000);
+
+    const nextPage = `
+    <div class="correctAnswer">Sorry! The Correct Answer was: ${quiz[index].correctAnswer}</div>
+    <img class="correctImg" src="${quiz[index].img}"> 
+    `;
+
+    // shows the correct answer and images 
+    $("#game").html(nextPage);
+}
+
+function smallerCountDown(){
+    smallCounter--;
+    if(smallCounter === 0){
+        console.log("smallerCountDown")
+        nextQuestion();
+    }
+}
 
 function displayResult(){
+
     const result = `
     <p>Correct: ${correct}</p>
     <p>Incorrect: ${incorrect}</p>
     <button>Play Again</button>
-    `
+    `;
 
     $("#game").html(result);
 }
