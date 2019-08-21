@@ -4,24 +4,25 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="assets/css/reset.css">
         <link rel="stylesheet" href="assets/css/style.css">
-        <script src="assets/javascript/app.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+        <script src="assets/javascript/app.js"></script>
     </head>
     <body>
         <section>
-            <div id="title">
-                Trivia Game
-            </div>
+            <div id="title">Trivia Game</div>
             <button id="start">START</button>
             <div id="timer" class="box"></div>
-            <div id="question" class="box"></div>
-            <button id="answer1" class="answer"></button>
-            <button id="answer2" class="answer"></button>
-            <button id="answer3" class="answer"></button>
-            <button id="answer4" class="answer"></button>
+            <div id="game" class="box">
+            <div id="answerPage" class="imagePage"></div>
+            </div>
         </section>
         <script>
-            playGame();
+        $("#start").on("click", function(){
+            $("#start").hide();
+            $(".box").show();
+            $(".answer").show();
+            displayQuestion();
+        });
         </script>
     </body>
 </html>
