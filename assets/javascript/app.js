@@ -47,8 +47,8 @@ var quiz = [
 let correct = 0;
 let incorrect = 0;
 let unanswered = 0;
-let counter = 3;
-let smallCounter = 5;
+let counter = 30;
+let smallCounter = 4;
 let index = 0;
 let timer;
 let smalltimer;
@@ -56,7 +56,7 @@ let smalltimer;
 // loads the question and answer page 
 function displayQuestion(){
 
-    counter = 3;
+    counter = 30;
     timer = setInterval(countDown, 1000);
 
     const question = quiz[index].question;
@@ -134,8 +134,8 @@ $(document).on("click", ".answer", function(){
 
 function correctPage(){
 
-    // starts a 5 second clock before proceeding to next question
-    smallCounter = 5;
+    // starts a 4 second clock before proceeding to next question
+    smallCounter = 4;
     smalltimer = setInterval(smallerCountDown, 1000);
 
     const nextPage = `
@@ -149,8 +149,8 @@ function correctPage(){
 
 function wrongPage(){
 
-    // starts a 5 second clock before proceeding to next question
-    smallCounter = 5;
+    // starts a 4 second clock before proceeding to next question
+    smallCounter = 4;
     smalltimer = setInterval(smallerCountDown, 1000);
 
     const nextPage = `
@@ -164,8 +164,8 @@ function wrongPage(){
 
 function didNotAnswer(){
 
-    // starts a 5 second clock before proceeding to next question
-    smallCounter = 5;
+    // starts a 4 second clock before proceeding to next question
+    smallCounter = 4;
     smalltimer = setInterval(smallerCountDown, 1000);
 
     const nextPage = `
